@@ -1,22 +1,39 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [items, setItems] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleAddItem = () => {
+    if (inputValue.trim()) {
+      setItems([...items, inputValue]);
+      setInputValue(''); // Clear the input
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>React V1 Application</h1>
+        <div>
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder="Enter item"
+          />
+          <button onClick={handleAddItem}>Add Item</button>
+        </div>
+        <ul>
+          {items.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
       </header>
     </div>
   );
